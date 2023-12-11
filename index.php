@@ -110,7 +110,7 @@
 
         <label for="phone">No WA:</label>
         <input type="text" id="phone" name="phone" required>
-
+	<h4> Steak Ayam </h4>
         <table>
             <tr>
                 <td><img src="https://picsum.photos/100/100" alt="Steak Ayam"></td>
