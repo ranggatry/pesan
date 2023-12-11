@@ -38,6 +38,18 @@
             margin-right: 16px;
         }
 
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -60,14 +72,15 @@
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Process the form data and construct the WhatsApp message
     $name = $_POST["name"];
+    $phone = $_POST["phone"];
 
-    // Chicken Steak a la Carte
+    // Steak Ayam
     $steak_ayam = $_POST["steak_ayam_bbq"];
     $steak_ayam_quantity = $_POST["steak_ayam_bbq_quantity"];
 
     // Construct the WhatsApp message
-    $whatsapp_message = "Order from $name,\n";
-    $whatsapp_message .= "Steak Ayam + Barbeque Sauce: $steak_ayam_quantity pcs\n";    
+    $whatsapp_message = "Order from $name ($phone),\n";
+    $whatsapp_message .= "Steak Ayam + Barbeque Sauce: $steak_ayam_quantity pcs\n";
 
     // Redirect to the WhatsApp link with the constructed message
     header("Location: https://api.whatsapp.com/send?phone=6285779720192&text=" . urlencode($whatsapp_message));
@@ -76,14 +89,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <h1>Pesan Disini Untuk di Pickup</h1>
-<h4>Steak Ayam</h4>
 
 <form method="post">
+    <label for="name">Nama:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="phone">No WA:</label>
+    <input type="text" id="phone" name="phone" required>
+
+    <h4>Steak Ayam</h4>
     <table>
         <tr>
             <td><img src="https://picsum.photos/100/100" alt="Steak Ayam"></td>
             <td>
-                <label for="steak_ayam_bbq">Steak Ayam + Barbeque Sauce</label><br>
+                <label for="steak_ayam_bbq">Steak Ayam + Barbeque Sauce</label>
                 <select id="steak_ayam_bbq_quantity" name="steak_ayam_bbq_quantity">
                     <?php for ($i = 0; $i <= 10; $i++) : ?>
                         <option value="<?= $i ?>"><?= $i ?></option>
@@ -93,7 +112,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </tr>
     </table>
 
-    <!-- <h4>Steak Sapi</h4> -->
     <button type="submit">Pesan Sekarang</button>
 </form>
 
